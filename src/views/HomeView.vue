@@ -2,6 +2,5 @@
 </script>
 
 <template>
-  <main>
-  </main>
+  <div class="container"></div>
 </template>

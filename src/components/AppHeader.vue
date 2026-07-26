@@ -11,7 +11,7 @@
 
 <style scoped>
 .app-header {
-  background-color: var(--color-background);
+  background-color: var(--color-bg);
   padding: 1rem;
   border-bottom: 1px solid var(--color-border);
 }
