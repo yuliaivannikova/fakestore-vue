@@ -60,3 +60,10 @@ p {
   font-size: var(--text-base);
   line-height: 1.6;
 }
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+}
