@@ -8,13 +8,6 @@ const categories = ref<Category[]>([])
 onMounted(async () => {
   categories.value = await getCategories()
 })
-
-const slugify = (text: string) => {
-  return text
-    .toLowerCase()
-    .replace(/'/g, '')
-    .replace(/\s+/g, '-')
-}
 </script>
 
 <template>
@@ -25,8 +18,8 @@ const slugify = (text: string) => {
       <RouterLink
         v-for="category in categories"
         :key="category"
-        :to="`/category/${slugify(category)}`"
-        :class="{ active: $route.params.category === slugify(category) }"
+        :to="`/category/${encodeURIComponent(category)}`"
+        :class="{ active: $route.params.category === category }"
         >{{ category }}</RouterLink
       >
     </nav>
