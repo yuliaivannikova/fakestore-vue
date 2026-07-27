@@ -8,9 +8,13 @@ const props = defineProps<{
 
 <template>
   <RouterLink :to="`/product/${product.id}`" class="product-card">
-    <img :src="product.image" :alt="product.title" />
-    <h3 class="product-title">{{ product.title }}</h3>
-    <p class="product-price">{{ product.price }}</p>
+    <div class="product-image-container">
+      <img :src="product.image" :alt="product.title" class="product-image" />
+    </div>
+    <div class="product-info">
+      <h3 class="product-title">{{ product.title }}</h3>
+      <p class="product-price">{{ product.price }}</p>
+    </div>
   </RouterLink>
 </template>
 
@@ -32,8 +36,37 @@ const props = defineProps<{
   transform: scale(1.05);
 }
 
+.product-image-container {
+  height: 250px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  background-color: var(--color-surface);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+}
+
+.product-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
 .product-title {
+ font-size: 0.95rem;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: var(--color-text);
   transition: color 0.3s ease;
 }
@@ -42,7 +75,9 @@ const props = defineProps<{
 }
 
 .product-price {
+  font-size: 0.95rem;
   text-align: center;
   color: var(--color-text);
+  font-weight: var(--weight-bold);
 }
 </style>

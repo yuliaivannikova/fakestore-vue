@@ -26,7 +26,14 @@ watch(
 
 <template>
   <div class="container">
-    <h2>{{ route.params.category }}</h2>
+    <h2 class="category-title">
+      <template v-if="route.params.category">
+        {{ route.params.category as string }}
+      </template>
+      <template v-else>
+        All Products
+      </template>
+    </h2>
     <div v-if="products.length > 0">
       <div class="products">
         <AppProductCard v-for="product in products" :key="product.id" :product="product" />
@@ -39,9 +46,17 @@ watch(
 </template>
 
 <style scoped>
+.category-title {
+  font-size: 1.5rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+  margin: var(--space-md) 0;
+  text-align: center;
+  text-transform: capitalize;
+}
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1rem;
 }
 </style>

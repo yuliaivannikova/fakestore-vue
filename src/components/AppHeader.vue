@@ -12,7 +12,7 @@ onMounted(async () => {
 
 <template>
   <header class="app-header">
-    <RouterLink to="/"><h1>FakeStore</h1></RouterLink>
+    <RouterLink to="/" class="logo"><h1>FakeStore</h1></RouterLink>
     <nav aria-label="Categories">
       <RouterLink to="/">Home</RouterLink>
       <RouterLink
@@ -37,7 +37,6 @@ header h1 {
   font-size: 1.5rem;
   font-weight: 600;
   text-transform: capitalize;
-  text-decoration: none;
   color: var(--color-text);
   transition: color 0.3s ease;
 }
@@ -46,6 +45,10 @@ header h1:hover {
   color: var(--color-primary);
 }
 
+.logo {
+  text-decoration: none;
+  cursor: pointer;
+}
 .app-header {
   background-color: var(--color-bg);
   padding: 1rem;
