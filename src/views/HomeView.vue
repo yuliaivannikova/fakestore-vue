@@ -2,6 +2,7 @@
 import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { getProductsByCategory, getProducts } from '../api/fakestore'
+import AppProductCard from '../components/AppProductCard.vue'
 import type { Product, Category } from '../types/index'
 
 const route = useRoute()
@@ -16,22 +17,31 @@ async function loadProducts() {
   }
 }
 
-onMounted(loadProducts);
-watch(() => route.params.category, () => loadProducts())
+onMounted(loadProducts)
+watch(
+  () => route.params.category,
+  () => loadProducts(),
+)
 </script>
 
 <template>
   <div class="container">
     <h2>{{ route.params.category }}</h2>
-    <div class="products">
-      <div v-for="product in products" :key="product.id" class="product">
-        <RouterLink :to="`/product/${product.id}`">
-          <img :src="product.image" :alt="product.title" />
-          <h3>{{ product.title }}</h3>
-          <p>{{ product.price }}</p>
-          <p>{{ product.description }}</p>
-        </RouterLink>
+    <div v-if="products.length > 0">
+      <div class="products">
+        <AppProductCard v-for="product in products" :key="product.id" :product="product" />
       </div>
+    </div>
+    <div v-else>
+      <p>No products found</p>
     </div>
   </div>
 </template>
+
+<style scoped>
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+</style>
