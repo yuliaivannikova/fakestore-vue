@@ -4,7 +4,11 @@ import { ref, onMounted } from 'vue'
 import type { Category } from '../types/index'
 import IconHeart from './IconHeart.vue'
 import IconCart from './IconCart.vue'
+import { useCartStore } from '@/stores/cart'
+
 const categories = ref<Category[]>([])
+
+const cartStore = useCartStore()
 
 onMounted(async () => {
   categories.value = await getCategories()
@@ -29,64 +33,62 @@ onMounted(async () => {
         <IconHeart />
       </button>
       <button type="button" aria-label="Add to cart" class="icon-btn cart-btn">
+        <span v-if="cartStore.count > 0">{{ cartStore.count }}</span>
         <IconCart />
       </button>
     </div>
   </header>
 </template>
 
-<style scoped>
-header {
+<style scoped lang="scss">
+.app-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
+  background-color: var(--color-bg);
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-border);
 
-header h1 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  text-transform: capitalize;
-  color: var(--color-text);
-  transition: color 0.3s ease;
-}
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: var(--color-text);
+    transition: color 0.3s ease;
 
-header h1:hover {
-  color: var(--color-primary);
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
+
+  nav {
+    display: flex;
+    gap: 1rem;
+
+    a {
+      text-decoration: none;
+      color: var(--color-text);
+      text-transform: capitalize;
+      transition: color 0.3s ease;
+
+      &:hover,
+      &.active {
+        color: var(--color-primary);
+      }
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
 }
 
 .logo {
   text-decoration: none;
   cursor: pointer;
 }
-.app-header {
-  background-color: var(--color-bg);
-  padding: 1rem;
-  border-bottom: 1px solid var(--color-border);
-}
 
-.app-header nav {
-  display: flex;
-  gap: 1rem;
-}
-
-.app-header nav a {
-  text-decoration: none;
-  color: var(--color-text);
-  text-transform: capitalize;
-  transition: color 0.3s ease;
-}
-
-.app-header nav a:hover {
-  color: var(--color-primary);
-}
-
-.app-header nav a.active {
-  color: var(--color-primary);
-}
-.header-actions {
-  display: flex;
-  gap: 0.5rem;
-}
 .icon-btn {
   background-color: transparent;
   border: none;
@@ -94,16 +96,34 @@ header h1:hover {
   padding: 0.5rem;
   transition: color 0.3s ease;
 }
-.wishlist-btn {
-  color: var(--color-text);
-}
+
+.wishlist-btn,
 .cart-btn {
   color: var(--color-text);
+
+  &:hover {
+    color: var(--color-primary);
+  }
 }
-.wishlist-btn:hover {
-  color: var(--color-primary);
-}
-.cart-btn:hover {
-  color: var(--color-primary);
+
+.cart-btn {
+  position: relative;
+  padding-right: 1rem;
+
+  span {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-radius: 50%;
+    padding: 0.25rem 0.5rem;
+    font-weight: var(--weight-bold);
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 </style>

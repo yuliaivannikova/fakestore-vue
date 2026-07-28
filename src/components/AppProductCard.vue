@@ -2,6 +2,9 @@
 import type { Product } from '../types/index'
 import IconCart from './IconCart.vue'
 import IconHeart from './IconHeart.vue'
+import { useCartStore } from '@/stores/cart'
+
+const cartStore = useCartStore()
 
 const props = defineProps<{
   product: Product
@@ -12,12 +15,8 @@ const props = defineProps<{
   <article class="product-card">
     <div class="product-image-container">
       <img :src="product.image" :alt="product.title" class="product-image" />
-      
-      <button 
-        type="button" 
-        aria-label="Add to wishlist" 
-        class="icon-btn wishlist-btn"
-      >
+
+      <button type="button" aria-label="Add to wishlist" class="icon-btn wishlist-btn">
         <IconHeart />
       </button>
     </div>
@@ -30,7 +29,7 @@ const props = defineProps<{
 
     <div class="product-actions">
       <p class="product-price">${{ product.price }}</p>
-      <button type="button" aria-label="Add to cart" class="icon-btn cart-btn">
+      <button @click="cartStore.add(product)" type="button" aria-label="Add to cart" class="icon-btn cart-btn">
         <IconCart />
       </button>
     </div>
@@ -49,15 +48,17 @@ const props = defineProps<{
   padding: 1rem;
   text-decoration: none;
   box-shadow: var(--shadow);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .product-card:hover {
-  transform: translateY(-4px); 
+  transform: translateY(-4px);
 }
 
 .product-image-container {
-  position: relative; 
+  position: relative;
   height: 250px;
   width: 100%;
   display: flex;
@@ -86,7 +87,11 @@ const props = defineProps<{
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   opacity: 0;
   transform: scale(0.8);
-  transition: opacity 0.25s ease, transform 0.25s ease, color 0.2s ease, background-color 0.2s ease;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    color 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .product-card:hover .wishlist-btn,
