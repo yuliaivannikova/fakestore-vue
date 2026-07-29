@@ -6,10 +6,12 @@ import type { Category } from '../types/index'
 import IconHeart from './IconHeart.vue'
 import IconCart from './IconCart.vue'
 import { useCartStore } from '@/stores/cart'
+import { useWishlistStore } from '@/stores/wishlist'
 
 const categories = ref<Category[]>([])
 const route = useRoute()
 const cartStore = useCartStore()
+const wishlistStore = useWishlistStore()
 const isHomePage = computed(() => route.name === 'home')
 onMounted(async () => {
   categories.value = await getCategories()
@@ -33,6 +35,7 @@ onMounted(async () => {
     </nav>
     <div class="header-actions">
       <button type="button" aria-label="Add to wishlist" class="icon-btn wishlist-btn">
+        <span v-if="wishlistStore.count > 0">{{ wishlistStore.count }}</span>
         <IconHeart />
       </button>
       <button type="button" aria-label="Add to cart" class="icon-btn cart-btn">
@@ -121,24 +124,31 @@ onMounted(async () => {
   }
 }
 
-.cart-btn {
+.cart-btn,
+.wishlist-btn {
   position: relative;
-  padding-right: 1rem;
 
   span {
     position: absolute;
     top: 0;
     right: 0;
+    font-size: 0.7rem;
     background-color: var(--color-primary);
     color: var(--color-white);
     border-radius: 50%;
     padding: 0.25rem 0.5rem;
     font-weight: var(--weight-bold);
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.2rem;
+    height: 1.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  .cart-btn {
+    padding-right: 1rem;
+    span {
+      right: 0.25rem;
+    }
   }
 }
 </style>
