@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router'
 import type { Category } from '../types/index'
 import IconHeart from './IconHeart.vue'
 import IconCart from './IconCart.vue'
+import IconMenuMobile from './IconMenuMobile.vue'
 import { useCartStore } from '@/stores/cart'
 import { useWishlistStore } from '@/stores/wishlist'
 
@@ -13,6 +14,8 @@ const route = useRoute()
 const cartStore = useCartStore()
 const wishlistStore = useWishlistStore()
 const isHomePage = computed(() => route.name === 'home')
+const isMenuOpen = ref(false)
+
 onMounted(async () => {
   categories.value = await getCategories()
 })
@@ -23,7 +26,7 @@ onMounted(async () => {
     <RouterLink to="/" class="logo">
       <component class="logo-text" :is="isHomePage ? 'h1' : 'span'"> FakeStore </component>
     </RouterLink>
-    <nav aria-label="Categories">
+    <nav id="desktop-nav" aria-label="Categories">
       <RouterLink to="/">Home</RouterLink>
       <RouterLink
         v-for="category in categories"
@@ -42,6 +45,18 @@ onMounted(async () => {
         <span v-if="cartStore.count > 0">{{ cartStore.count }}</span>
         <IconCart />
       </button>
+      <button type="button" aria-label="Open menu" class="icon-btn mobile-nav burger" @click="isMenuOpen = !isMenuOpen" :aria-expanded="isMenuOpen" aria-controls="mobile-nav">
+        <IconMenuMobile />
+      </button>
+      <nav id="mobile-nav" :aria-expanded="isMenuOpen" aria-label="Mobile navigation">
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink
+          v-for="category in categories"
+          :key="category"
+          :to="`/category/${encodeURIComponent(category)}`"
+          :class="{ active: $route.params.category === category }"
+        >{{ category }}</RouterLink>
+      </nav>
     </div>
   </header>
 </template>
@@ -54,6 +69,7 @@ onMounted(async () => {
   background-color: var(--color-bg);
   padding: 1rem;
   border-bottom: 1px solid var(--color-border);
+  position: relative;
 
   h1 {
     font-size: 1.5rem;
@@ -67,8 +83,11 @@ onMounted(async () => {
     }
   }
 
-  nav {
-    display: flex;
+  #desktop-nav {
+    display: none;
+    @media (min-width: 768px) {
+      display: flex;
+    }
     gap: 1rem;
 
     a {
@@ -84,9 +103,54 @@ onMounted(async () => {
     }
   }
 
+  .mobile-nav {
+    @media (min-width: 768px) {
+      .burger {
+        display: none;
+      }
+    }
+  }
+
   .header-actions {
     display: flex;
     gap: 0.5rem;
+  }
+  #mobile-nav {
+    display: none;
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: var(--color-bg);
+      padding: 1rem;
+      border-bottom: 1px solid var(--color-border);
+      z-index: 100;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+    &[aria-expanded="true"] {
+      transform: translateX(0);
+    }
+    a {
+      text-decoration: none;
+      color: var(--color-text);
+      text-transform: capitalize;
+      transition: color 0.3s ease;
+      &:hover, &.active {
+        color: var(--color-primary);
+      }
+    }
+  }
+  .burger {
+    display: block;
+    @media (min-width: 768px) {
+      display: none;
+    }
   }
 }
 

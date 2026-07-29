@@ -77,7 +77,7 @@ watch(() => route.params.id, refetch)
   border-radius: var(--radius);
   background-color: var(--color-surface);
   height: 100%;
-  min-height: 300px;
+  min-height: 250px;
   display: flex;
   align-items: center;
   justify-content: center;
