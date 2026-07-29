@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { getCategories } from '../api/fakestore'
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, inject, type Ref } from 'vue'
 import { useRoute } from 'vue-router'
 import type { Category } from '../types/index'
 import IconHeart from './IconHeart.vue'
 import IconCart from './IconCart.vue'
 import IconMenuMobile from './IconMenuMobile.vue'
+import IconToggleTheme from './IconToggleTheme.vue'
 import { useCartStore } from '@/stores/cart'
 import { useWishlistStore } from '@/stores/wishlist'
-
+import { useTheme } from '../composables/useTheme'
 const categories = ref<Category[]>([])
 const route = useRoute()
 const cartStore = useCartStore()
@@ -44,6 +45,9 @@ onMounted(async () => {
       <button type="button" aria-label="Add to cart" class="icon-btn cart-btn">
         <span v-if="cartStore.count > 0">{{ cartStore.count }}</span>
         <IconCart />
+      </button>
+      <button type="button" aria-label="Toggle theme" class="icon-btn theme-btn" @click="useTheme().toggleTheme">
+        <IconToggleTheme />
       </button>
       <button type="button" aria-label="Open menu" class="icon-btn mobile-nav burger" @click="isMenuOpen = !isMenuOpen" :aria-expanded="isMenuOpen" aria-controls="mobile-nav">
         <IconMenuMobile />
@@ -180,7 +184,8 @@ onMounted(async () => {
 }
 
 .wishlist-btn,
-.cart-btn {
+.cart-btn,
+.theme-btn, .burger {
   color: var(--color-text);
 
   &:hover {
