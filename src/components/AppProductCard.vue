@@ -17,7 +17,13 @@ const props = defineProps<{
     <div class="product-image-container">
       <img :src="product.image" :alt="product.title" class="product-image" />
 
-      <button type="button" aria-label="Add to wishlist" :class="{ active: wishlistStore.isInWishlist(product.id) }"class="icon-btn wishlist-btn" @click="wishlistStore.toggle(product)">
+      <button
+        type="button"
+        aria-label="Add to wishlist"
+        class="icon-btn wishlist-btn"
+        :class="{ active: wishlistStore.isInWishlist(product.id) }"
+        @click="wishlistStore.toggle(product)"
+      >
         <IconHeart />
       </button>
     </div>
@@ -37,7 +43,7 @@ const props = defineProps<{
   </article>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .product-card {
   position: relative;
   display: flex;
@@ -52,10 +58,19 @@ const props = defineProps<{
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
-}
 
-.product-card:hover {
-  transform: translateY(-4px);
+  &:hover {
+    transform: translateY(-4px);
+
+    .wishlist-btn {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .product-title {
+      color: var(--color-primary);
+    }
+  }
 }
 
 .product-image-container {
@@ -93,19 +108,18 @@ const props = defineProps<{
     transform 0.25s ease,
     color 0.2s ease,
     background-color 0.2s ease;
-}
 
-.product-card:hover .wishlist-btn,
-.wishlist-btn:focus-visible,
-.wishlist-btn.active {
-  opacity: 1;
-  transform: scale(1);
-}
+  &:focus-visible,
+  &.active {
+    opacity: 1;
+    transform: scale(1);
+  }
 
-.wishlist-btn:hover,
-.wishlist-btn.active {
-  color: var(--color-primary);
-  background-color: var(--color-bg);
+  &:hover,
+  &.active {
+    color: var(--color-primary);
+    background-color: var(--color-bg);
+  }
 }
 
 .product-link {
@@ -126,10 +140,6 @@ const props = defineProps<{
   text-overflow: ellipsis;
   color: var(--color-text);
   transition: color 0.3s ease;
-}
-
-.product-card:hover .product-title {
-  color: var(--color-primary);
 }
 
 .product-actions {
@@ -162,10 +172,10 @@ const props = defineProps<{
   color: var(--color-white);
   border-radius: 6px;
   transition: background-color 0.2s ease;
-}
 
-.cart-btn:hover {
-  opacity: 0.9;
+  &:hover {
+    opacity: 0.9;
+  }
 }
 
 @media (hover: none) {

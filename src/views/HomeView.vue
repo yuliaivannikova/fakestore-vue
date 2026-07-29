@@ -44,7 +44,7 @@ watch(() => route.params.category, refetch)
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .category-title {
   font-size: 1.5rem;
   font-weight: var(--weight-bold);
@@ -53,6 +53,7 @@ watch(() => route.params.category, refetch)
   text-align: center;
   text-transform: capitalize;
 }
+
 .products {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
