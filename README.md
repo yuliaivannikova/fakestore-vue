@@ -1,54 +1,86 @@
-# fakestore-vue
+# FakeStore Vue
 
-This template should help get you started developing with Vue 3 in Vite.
+E-commerce web app built with Vue 3 and TypeScript. It displays products and categories from the [Fake Store API](https://fakestoreapi.com/docs), supports category filtering via URL, product details, and client-side cart and wishlist state.
 
-## Recommended IDE Setup
+## Tech Stack
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- Vue 3 (Composition API, `<script setup>`)
+- TypeScript
+- Vue Router
+- Pinia
+- Vite
+- SCSS (CSS custom properties for theming)
+- Vitest
 
-## Recommended Browser Setup
+## Prerequisites
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- [Node.js](https://nodejs.org/) `^22.18.0` or `>=24.12.0` (see `engines` in `package.json`)
+- npm
 
-## Type Support for `.vue` Imports in TS
+## Local Setup
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+1. Clone the repository:
 
-## Customize configuration
+```sh
+git clone <repository-url>
+cd fakestore-vue
+```
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+2. Install dependencies:
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+3. Start the development server:
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+4. Open the URL shown in the terminal (usually `http://localhost:5173`).
 
-```sh
-npm run build
+No environment variables are required — the app uses the public Fake Store API.
+
+## Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start dev server with hot reload |
+| `npm run build` | Type-check and build for production |
+| `npm run preview` | Preview the production build locally |
+| `npm run type-check` | Run TypeScript checks |
+| `npm run test:unit` | Run unit tests with Vitest |
+| `npm run lint` | Run ESLint and Oxlint |
+| `npm run format` | Format source files with Prettier |
+
+## Features
+
+- Responsive layout with header navigation and category filter
+- Product grid on the home page with deep-linkable category URLs
+- Product detail page
+- Shopping cart and wishlist (Pinia)
+- Loading and error states for API requests
+
+## Project Structure
+
+```
+src/
+├── api/           # Fake Store API calls
+├── components/    # Reusable UI components
+├── composables/   # Shared composables (e.g. useFetch)
+├── router/        # Vue Router configuration
+├── stores/        # Pinia stores (cart, wishlist)
+├── styles/        # Global SCSS and design tokens
+├── types/         # TypeScript types
+└── views/         # Route-level page components
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+## API
 
-```sh
-npm run test:unit
-```
+Data is fetched from `https://fakestoreapi.com`. Main endpoints used:
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+- `GET /products`
+- `GET /products/:id`
+- `GET /products/categories`
+- `GET /products/category/:category`
