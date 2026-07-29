@@ -4,6 +4,7 @@ import { watch } from 'vue'
 import { getProductById } from '../api/fakestore'
 import IconCart from '../components/IconCart.vue'
 import { useCartStore } from '../stores/cart'
+import { useWishlistStore } from '../stores/wishlist'
 import IconHeart from '../components/IconHeart.vue'
 import { useFetch } from '../composables/useFetch'
 import AppLoader from '../components/AppLoader.vue'
@@ -16,6 +17,7 @@ const {
   refetch,
 } = useFetch(() => getProductById(Number(route.params.id)))
 const cartStore = useCartStore()
+const wishlistStore = useWishlistStore()
 watch(() => route.params.id, refetch)
 
 </script>
@@ -41,7 +43,7 @@ watch(() => route.params.id, refetch)
           >
             <IconCart />
           </button>
-          <button type="button" aria-label="Add to wishlist" class="icon-btn wishlist-btn">
+          <button type="button" :class="{ active: wishlistStore.isInWishlist(product.id) }" aria-label="Add to wishlist" class="icon-btn wishlist-btn" @click="wishlistStore.toggle(product)">
             <IconHeart />
           </button>
         </div>
@@ -123,7 +125,7 @@ watch(() => route.params.id, refetch)
 .wishlist-btn {
   color: var(--color-text);
   transition: color 0.3s ease;
-  &:hover {
+  &:hover, &:focus-visible, &.active {
     color: var(--color-primary);
   }
 }

@@ -3,9 +3,10 @@ import type { Product } from '../types/index'
 import IconCart from './IconCart.vue'
 import IconHeart from './IconHeart.vue'
 import { useCartStore } from '@/stores/cart'
+import { useWishlistStore } from '@/stores/wishlist'
 
 const cartStore = useCartStore()
-
+const wishlistStore = useWishlistStore()
 const props = defineProps<{
   product: Product
 }>()
@@ -16,7 +17,7 @@ const props = defineProps<{
     <div class="product-image-container">
       <img :src="product.image" :alt="product.title" class="product-image" />
 
-      <button type="button" aria-label="Add to wishlist" class="icon-btn wishlist-btn">
+      <button type="button" aria-label="Add to wishlist" :class="{ active: wishlistStore.isInWishlist(product.id) }"class="icon-btn wishlist-btn" @click="wishlistStore.toggle(product)">
         <IconHeart />
       </button>
     </div>
