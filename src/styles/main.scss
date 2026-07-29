@@ -67,3 +67,13 @@ p {
   margin-inline: auto;
   padding-inline: var(--space-md);
 }
+
+.error-message {
+  color: var(--color-error);
+  text-align: center;
+  margin: var(--space-xl) 0;
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+  background-color: color-mix(in srgb, var(--color-error) 5%, transparent);
+  }
