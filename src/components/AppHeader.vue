@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { getCategories } from '../api/fakestore'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+import { useRoute } from 'vue-router'
 import type { Category } from '../types/index'
 import IconHeart from './IconHeart.vue'
 import IconCart from './IconCart.vue'
 import { useCartStore } from '@/stores/cart'
 
 const categories = ref<Category[]>([])
-
+const route = useRoute()
 const cartStore = useCartStore()
-
+const isHomePage = computed(() => route.name === 'home')
 onMounted(async () => {
   categories.value = await getCategories()
 })
@@ -17,7 +18,9 @@ onMounted(async () => {
 
 <template>
   <header class="app-header">
-    <RouterLink to="/" class="logo"><h1>FakeStore</h1></RouterLink>
+    <RouterLink to="/" class="logo">
+      <component class="logo-text" :is="isHomePage ? 'h1' : 'span'"> FakeStore </component>
+    </RouterLink>
     <nav aria-label="Categories">
       <RouterLink to="/">Home</RouterLink>
       <RouterLink
@@ -87,6 +90,18 @@ onMounted(async () => {
 .logo {
   text-decoration: none;
   cursor: pointer;
+
+  .logo-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: var(--color-text);
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
 }
 
 .icon-btn {

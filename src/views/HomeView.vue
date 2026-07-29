@@ -1,27 +1,26 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { getProductsByCategory, getProducts } from '../api/fakestore'
 import AppProductCard from '../components/AppProductCard.vue'
-import type { Product, Category } from '../types/index'
+import type { Category } from '../types/index'
+import AppLoader from '../components/AppLoader.vue'
+import { useFetch } from '../composables/useFetch'
 
 const route = useRoute()
-const products = ref<Product[]>([])
-
-async function loadProducts() {
+const {
+  data: products,
+  isLoading,
+  error,
+  refetch,
+} = useFetch(() => {
   const category = route.params.category as string | undefined
   if (category) {
-    products.value = await getProductsByCategory(category as Category)
-  } else {
-    products.value = await getProducts()
+    return getProductsByCategory(category as Category)
   }
-}
-
-onMounted(loadProducts)
-watch(
-  () => route.params.category,
-  () => loadProducts(),
-)
+  return getProducts()
+})
+watch(() => route.params.category, refetch)
 </script>
 
 <template>
@@ -30,11 +29,11 @@ watch(
       <template v-if="route.params.category">
         {{ route.params.category as string }}
       </template>
-      <template v-else>
-        All Products
-      </template>
+      <template v-else> All Products </template>
     </h2>
-    <div v-if="products.length > 0">
+    <AppLoader v-if="isLoading" />
+    <p class="error-message" v-else-if="error">{{ error }}</p>
+    <div v-else-if="products && products.length > 0">
       <div class="products">
         <AppProductCard v-for="product in products" :key="product.id" :product="product" />
       </div>
