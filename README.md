@@ -42,6 +42,17 @@ npm run dev
 
 No environment variables are required — the app uses the public Fake Store API.
 
+## Authentication
+
+Cart and wishlist require login. Use the demo credentials from the [Fake Store API](https://fakestoreapi.com/docs):
+
+| Field | Value |
+|-------|-------|
+| Username | `johnd` |
+| Password | `m38rmF$` |
+
+Open `/login` in the app or click **Log in** in the header.
+
 ## Available Scripts
 
 | Command | Description |
@@ -59,7 +70,9 @@ No environment variables are required — the app uses the public Fake Store API
 - Responsive layout with header navigation and category filter
 - Product grid on the home page with deep-linkable category URLs
 - Product detail page
-- Shopping cart and wishlist (Pinia)
+- Login / logout (Fake Store auth API)
+- Shopping cart and wishlist (Pinia, requires authentication)
+- Light / dark theme toggle
 - Loading and error states for API requests
 
 ## Project Structure
@@ -70,7 +83,7 @@ src/
 ├── components/    # Reusable UI components
 ├── composables/   # Shared composables (e.g. useFetch)
 ├── router/        # Vue Router configuration
-├── stores/        # Pinia stores (cart, wishlist)
+├── stores/        # Pinia stores (auth, cart, wishlist)
 ├── styles/        # Global SCSS and design tokens
 ├── types/         # TypeScript types
 └── views/         # Route-level page components
@@ -84,3 +97,4 @@ Data is fetched from `https://fakestoreapi.com`. Main endpoints used:
 - `GET /products/:id`
 - `GET /products/categories`
 - `GET /products/category/:category`
+- `POST /auth/login`
