@@ -2,6 +2,9 @@
 
 E-commerce web app built with Vue 3 and TypeScript. It displays products and categories from the [Fake Store API](https://fakestoreapi.com/docs), supports category filtering via URL, product details, and client-side cart and wishlist state.
 
+**Live demo:** [fakestoreivannikova.netlify.app](https://fakestoreivannikova.netlify.app/)  
+**Repository:** [github.com/yuliaivannikova/fakestore-vue](https://github.com/yuliaivannikova/fakestore-vue)
+
 ## Tech Stack
 
 - Vue 3 (Composition API, `<script setup>`)
@@ -22,7 +25,7 @@ E-commerce web app built with Vue 3 and TypeScript. It displays products and cat
 1. Clone the repository:
 
 ```sh
-git clone <repository-url>
+git clone https://github.com/yuliaivannikova/fakestore-vue.git
 cd fakestore-vue
 ```
 
