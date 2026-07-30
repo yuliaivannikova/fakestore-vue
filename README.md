@@ -101,3 +101,7 @@ Data is fetched from `https://fakestoreapi.com`. Main endpoints used:
 - `GET /products/categories`
 - `GET /products/category/:category`
 - `POST /auth/login`
+
+## On the use of AI tools
+
+Vue was a new framework for me, my background is React and JavaScript, so I used AI primarily as a learning aid. I also used Cursor's inline autocomplete as an editor feature, and AI assistance for boilerplate with an objectively verifiable outcome (config files, the TypeScript interfaces derived from real Fake Store API responses, and SCSS design tokens). Every snippet went through `tsc`, ESLint and manual testing in the browser, I cross-checked AI suggestions against the official Vue documentation.
