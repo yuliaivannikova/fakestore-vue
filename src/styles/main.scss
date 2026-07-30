@@ -1,7 +1,9 @@
 @use 'variables';
 @use 'themes';
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -19,16 +21,27 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-img, picture, svg {
+img,
+picture,
+svg {
   display: block;
   max-width: 100%;
 }
 
-input, button, textarea, select {
+input,
+button,
+textarea,
+select {
   font: inherit;
 }
 
-p, h1, h2, h3, h4, h5, h6 {
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   overflow-wrap: break-word;
 }
 
@@ -76,4 +89,29 @@ p {
   border-radius: var(--radius);
   padding: var(--space-md);
   background-color: color-mix(in srgb, var(--color-error) 5%, transparent);
+}
+
+button {
+  padding: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover,
+  &:focus-visible {
+    background-color: var(--color-primary-dark);
   }
+}
+input {
+  padding: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  &:focus {
+    outline: none;
+    border-color: var(--color-border-dark);
+  }
+}

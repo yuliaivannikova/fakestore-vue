@@ -156,27 +156,7 @@ const props = defineProps<{
   margin: 0;
 }
 
-.icon-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 50%;
-}
 
-.cart-btn {
-  background-color: var(--color-primary);
-  color: var(--color-white);
-  border-radius: 6px;
-  transition: background-color 0.2s ease;
-
-  &:hover {
-    opacity: 0.9;
-  }
-}
 
 @media (hover: none) {
   .wishlist-btn {

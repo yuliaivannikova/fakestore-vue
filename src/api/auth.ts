@@ -11,6 +11,9 @@ export const login = async (credentials: LoginCredentials): Promise<LoginRespons
     body: JSON.stringify(credentials),
   })
   if (!response.ok) {
+    if (response.status === 401) {
+      throw new Error('Invalid login or password')
+    } 
     throw new Error(`HTTP ${response.status}`)
   }
   return response.json()
