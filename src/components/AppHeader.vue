@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { getCategories } from '../api/fakestore'
-import { ref, onMounted, computed, inject, type Ref } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '@/router'
 import type { Category } from '../types/index'

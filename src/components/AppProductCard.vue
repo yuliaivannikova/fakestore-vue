@@ -7,7 +7,7 @@ import { useWishlistStore } from '@/stores/wishlist'
 
 const cartStore = useCartStore()
 const wishlistStore = useWishlistStore()
-const props = defineProps<{
+defineProps<{
   product: Product
 }>()
 </script>

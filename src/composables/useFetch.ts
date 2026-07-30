@@ -10,8 +10,8 @@ export function useFetch<T>(fetcherFn: () => Promise<T>) {
     error.value = null
     try {
       data.value = await fetcherFn()
-    } catch (err: any) {
-      error.value = err.message || 'Error loading data'
+    } catch (err: unknown) {
+      error.value = err instanceof Error ? err.message : 'Error loading data'
     } finally {
       isLoading.value = false
     }
