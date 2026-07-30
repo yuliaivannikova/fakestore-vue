@@ -40,10 +40,10 @@ onMounted(async () => {
       >
     </nav>
     <div class="header-actions">
-      <RouterLink v-if="!authStore.isAuthenticated" to="/login">
-        <button type="button">Log in</button>
+      <RouterLink v-if="!authStore.isAuthenticated" to="/login" class="desktop-login-btn">
+        <button type="button" class="button-secondary">Log in</button>
       </RouterLink>
-      <button v-else type="button" @click="authStore.logout(); router.push('/login')">Log out</button>
+      <button v-else type="button" class="button-secondary desktop-login-btn" @click="authStore.logout(); router.push('/login')">Log out</button>
       <button type="button" aria-label="Add to wishlist" class="icon-btn wishlist-btn">
         <span v-if="wishlistStore.count > 0">{{ wishlistStore.count }}</span>
         <IconHeart />
@@ -79,6 +79,12 @@ onMounted(async () => {
           :class="{ active: $route.params.category === category }"
           >{{ category }}</RouterLink
         >
+
+
+         <RouterLink v-if="!authStore.isAuthenticated" to="/login">
+        <button type="button" class="button-secondary">Log in</button>
+      </RouterLink>
+      <button v-else type="button" class="button-secondary" @click="authStore.logout(); router.push('/login')">Log out</button>
       </nav>
     </div>
   </header>
@@ -137,6 +143,12 @@ onMounted(async () => {
   .header-actions {
     display: flex;
     gap: 0.5rem;
+    .desktop-login-btn {
+      display: none;
+      @media (min-width: 768px) {
+        display: block;
+      }
+    }
   }
   #mobile-nav {
     display: none;

@@ -28,7 +28,7 @@ const handleLogin = async () => {
     <form @submit.prevent="handleLogin">
       <input id="username" v-model="username" type="text" autocomplete="username" required />
       <input id="password" v-model="password" type="password" autocomplete="current-password" required />
-      <button type="submit">Log in</button>
+      <button type="submit" class="button-primary">Log in</button>
       <p v-if="error" class="error-message">{{ error }}</p>
     </form>
   </div>

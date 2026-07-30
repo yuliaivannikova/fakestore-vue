@@ -16,7 +16,6 @@ const props = defineProps<{
   <article class="product-card">
     <div class="product-image-container">
       <img :src="product.image" :alt="product.title" class="product-image" />
-
       <button
         type="button"
         aria-label="Add to wishlist"
@@ -36,7 +35,7 @@ const props = defineProps<{
 
     <div class="product-actions">
       <p class="product-price">${{ product.price }}</p>
-      <button @click="cartStore.add(product)" type="button" aria-label="Add to cart" class="icon-btn cart-btn">
+      <button @click="cartStore.add(product)" type="button" aria-label="Add to cart" class="icon-btn cart-btn button-primary">
         <IconCart />
       </button>
     </div>
@@ -155,8 +154,6 @@ const props = defineProps<{
   font-weight: var(--weight-bold);
   margin: 0;
 }
-
-
 
 @media (hover: none) {
   .wishlist-btn {
